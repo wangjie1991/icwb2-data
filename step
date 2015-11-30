@@ -1,0 +1,20 @@
+mkdir dict seg score
+cp WordSplit dict/bind_dict.gbk dict/lexicon.gbk
+
+cd testing
+iconv -f utf8 -t gbk pku_test.utf8 > pku_test.gbk
+iconv -f utf8 -t gbk msr_test.utf8 > msr_test.gbk
+
+cd gold
+iconv -f utf8 -t gbk pku_test_gold.utf8 > pku_test_gold.gbk
+iconv -f utf8 -t gbk msr_test_gold.utf8 > msr_test_gold.gbk
+
+./WordSplit dict/lexicon.gbk testing/pku_test.gbk seg/pku_test_lex.gbk
+./WordSplit dict/bind_dict.gbk testing/pku_test.gbk seg/pku_test_bind.gbk
+
+./scripts/score dict/lexicon.gbk gold/pku_test_gold.gbk seg/pku_test_lex.gbk > score/score_lex.gbk
+./scripts/score dict/bind_dict.gbk gold/pku_test_gold.gbk seg/pku_test_bind.gbk > score/score_bind.gbk
+
+vi score/score_lex.gbk  >>  TOTAL TRUE WORDS RECALL | TOTAL TEST WORDS PRECISION
+vi score/score_bind.gbk  >>  TOTAL TRUE WORDS RECALL | TOTAL TEST WORDS PRECISION
+
