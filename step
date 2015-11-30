@@ -9,12 +9,26 @@ cd gold
 iconv -f utf8 -t gbk pku_test_gold.utf8 > pku_test_gold.gbk
 iconv -f utf8 -t gbk msr_test_gold.utf8 > msr_test_gold.gbk
 
+
+# test set pku
 ./WordSplit dict/lexicon.gbk testing/pku_test.gbk seg/pku_test_lex.gbk
 ./WordSplit dict/bind_dict.gbk testing/pku_test.gbk seg/pku_test_bind.gbk
 
-./scripts/score dict/lexicon.gbk gold/pku_test_gold.gbk seg/pku_test_lex.gbk > score/score_lex.gbk
-./scripts/score dict/bind_dict.gbk gold/pku_test_gold.gbk seg/pku_test_bind.gbk > score/score_bind.gbk
+./scripts/score dict/lexicon.gbk gold/pku_test_gold.gbk seg/pku_test_lex.gbk > score/pku_score_lex.gbk
+./scripts/score dict/bind_dict.gbk gold/pku_test_gold.gbk seg/pku_test_bind.gbk > score/pku_score_bind.gbk
 
-vi score/score_lex.gbk  >>  TOTAL TRUE WORDS RECALL | TOTAL TEST WORDS PRECISION
-vi score/score_bind.gbk  >>  TOTAL TRUE WORDS RECALL | TOTAL TEST WORDS PRECISION
+vi score/pku_score_lex.gbk  >>  TOTAL TRUE WORDS RECALL | TOTAL TEST WORDS PRECISION
+vi score/pku_score_bind.gbk  >>  TOTAL TRUE WORDS RECALL | TOTAL TEST WORDS PRECISION
+
+
+# test set msr
+./WordSplit dict/lexicon.gbk testing/msr_test.gbk seg/msr_test_lex.gbk
+./WordSplit dict/bind_dict.gbk testing/msr_test.gbk seg/msr_test_bind.gbk
+
+./scripts/score dict/lexicon.gbk gold/msr_test_gold.gbk seg/msr_test_lex.gbk > score/msr_score_lex.gbk
+./scripts/score dict/bind_dict.gbk gold/msr_test_gold.gbk seg/msr_test_bind.gbk > score/msr_score_bind.gbk
+
+vi score/msr_score_lex.gbk  >>  TOTAL TRUE WORDS RECALL | TOTAL TEST WORDS PRECISION
+vi score/msr_score_bind.gbk  >>  TOTAL TRUE WORDS RECALL | TOTAL TEST WORDS PRECISION
+
 
